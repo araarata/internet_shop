@@ -287,7 +287,7 @@ export default class App extends Component {
   }
 
   render() {
-    
+    console.log('hello')
     return (
       <div className='container'>
         <Header
