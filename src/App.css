@@ -1,0 +1,519 @@
+body {
+  margin: 0 auto;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+
+.container {
+  background: url('https://png.pngtree.com/png-vector/20240720/ourlarge/pngtree-books-seamless-contour-pattern-png-image_12999211.png'), rgba(255, 255, 255, 0.85);
+  background-blend-mode: screen;
+  width: 80vw;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.renderBooks{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  justify-items: center;
+  min-height: 80vh;
+}
+
+
+/*CARD*/
+
+.card {
+  margin: 10px;
+  width: 200px;
+  height: 380px;
+  background-color: #435368;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 15px 5px;
+  border-radius: 20px;
+  border: 1px solid rgb(23, 40, 65);
+  position: relative;
+}
+
+.imgSize {
+  width: 170px;
+  height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgSize img {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  border: 1px solid rgb(23, 40, 65);
+}
+
+.nameBook {
+  width: 100%;
+  height: 80px;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+  color: #ffffff;
+}
+
+.nameBook::first-letter {
+  text-transform: uppercase;
+}
+
+.typeBook {
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  margin: 3px;
+  color: white;
+  padding: 0;
+  background-color: rgb(201, 98, 201);
+}
+
+.typeBook::first-letter {
+  text-transform: uppercase;
+}
+
+.byuBook {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  width: inherit;
+  margin-top: 10px;
+}
+
+.byuBook h3 {
+  margin: 0 auto;
+  color: #ffffff;
+}
+
+.styleFaCartPlus {
+  margin: 0 auto;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #435368;
+  border-radius: 50%;
+}
+
+.FaCartPlus {
+  margin: 0 auto;
+  color: white;
+  font-size: 24px;
+}
+
+.styleFaCartPlus:hover {
+  background-color: rgb(201, 98, 201);
+  border: 1px solid white;
+}
+
+.annotation {
+  margin: -7px auto 1px 0%;
+  width: 15px;
+  height: 15px;
+  background-color: #ffffff;
+  border: 1px solid #435368;
+  border-radius: 50%;
+  font-size: 14px;
+  text-align: center;
+  cursor: default;
+}
+
+.annotation:hover {
+  background-color: rgb(201, 98, 201);
+  border: 1px solid white;
+  color: white;
+}
+
+.annotationText {
+  position: absolute;
+  width: 85%;
+  background-color: #ffffff;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 10px;
+  top: 30px;
+}
+
+.annotationTextNone {
+  display: none
+}
+
+.annotationText p {
+  font-size: 14px;
+  margin: 0;
+  text-align: justify;
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+
+  .card {
+    margin: 3px;
+    width: 185px;
+    height: 340px;
+    padding: 10px 5px;
+    border-radius: 20px;
+  }
+
+  .imgSize {
+    width: 160px;
+    height: 240px;
+  }
+
+  .imgSize img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .nameBook {
+    width: 100%;
+    font-size: 16px;
+    margin-top: 5px;
+  }
+
+  .byuBook {
+    margin-top: 0px;
+  }
+
+
+
+  .FaCartPlus {
+    font-size: 26px;
+  }
+
+  .annotation {
+    margin: -5px auto 1px 0%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .annotationText {
+    width: 90%;
+    border-radius: 5px;
+    padding: 5px 5px;
+    top: 30px;
+  }
+
+  .annotationText p {
+    font-size: 16px;
+  }
+
+}
+
+/* HEADER */
+
+.header {
+  width: inherit;
+  height: 10vh;
+  background-color: #435368;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoAndMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50%;
+  margin: 0;
+}
+
+.logo {
+  width: 60px;
+  margin-left: 20px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+}
+
+.itemMenu {
+  margin: 0 5px;
+  font-size: 16px;
+  color: #ffffff;
+  text-transform: uppercase;
+  border: 1px solid #435368;
+  padding: 2px 10px;
+  border-radius: 25px;
+  cursor: default;
+}
+
+.itemMenu:hover {
+  background-color: rgb(201, 98, 201);
+  border: 1px solid white;
+}
+
+.searchAndCart {
+  display: flex;
+  width: 50%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+
+#search {
+  width: 30%;
+  height: 20px;
+  margin: 0 120px 0 0;
+  box-shadow: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 0 8px;
+}
+
+
+.parrentListOfGenre {
+  position: relative;
+}
+
+.listOfGenre {
+  position: absolute;
+  list-style-type: none;
+  padding: 4px 10px;
+  margin-left: 5px;
+  width: auto;
+  border: 1px solid white;
+  z-index: 3;
+  background-color: #435368;
+  left: 0;
+  top: 10px;
+  border-radius: 10px;
+}
+
+.listOfGenreNone {
+  display: none;
+}
+
+.itemGenre {
+  color: white;
+  margin: 5px auto;
+  font-size: 16px;
+  text-transform: lowercase;
+  cursor: default;
+}
+
+.itemGenre:hover {
+  color: rgb(247, 142, 247);
+}
+
+.itemGenre::first-letter {
+  text-transform: uppercase;
+}
+
+
+.cart {
+  width: 35px;
+  height: 35px;
+  margin: 0 40px 0 0;
+  position: absolute;
+}
+
+.FaCartPlusHeader {
+  position: absolute;
+  margin: auto auto;
+  color: #ffffff;
+  width: 35px;
+  height: 35px;
+}
+
+.FaCartPlusHeader:hover {
+  color: rgb(247, 142, 247);
+}
+
+/*CART_IN_HEADER*/
+
+.cartBooks {
+  position: relative;
+  width: 220px;
+  height: auto;
+  z-index: 5;
+  margin: 0;
+  padding: 5px;
+  right: 180px;
+  top: 40px;
+  background-color: #435368;
+  border: 1px solid white;
+  border-radius: 5px;
+}
+.cartBooksNone{
+  display: none;
+}
+
+.resultBooksInCart{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 8px 0;
+  padding-top: 10px;
+  border-top: 1px solid white;
+}
+.sumAllBooksInCart{
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.sumAllBooksInCart::first-letter{
+  text-transform: uppercase;
+}
+
+.orderBooks{
+  width: 80px;
+  height: 25px;
+  font-size: 14px;
+  border: 1px solid white;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.orderBooks:hover{
+  background-color: rgb(247, 142, 247);
+  color: #ffffff;
+}
+
+/*_________________*/
+
+
+
+ /*BOOK_IN_CART*/
+
+.bookInCartVisible{
+  display: flex;
+  flex-direction: row;
+  border: 1px solid white;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5px;
+  background-color: #435368;
+  cursor: default;
+  margin-bottom: 4px;
+}
+
+.bookInCartNone{
+  display: none;
+}
+
+.bookInCart:hover{
+  background-color:  lightslategray;
+}
+
+.nameBookInCart {
+  margin: 0 auto;
+  padding: 0;
+  font-size: 12px;
+  width: 45%;
+  word-break: break-all;
+  hyphens: auto;
+  text-align: center;
+  color: #ffffff;
+}
+.nameBookInCart::first-letter{
+  text-transform: uppercase
+}
+
+.priceBookInCart {
+  margin: 0 auto;
+  padding: 0;
+  font-size: 12px;
+  width: 20%;
+  text-align: center;
+  color: #ffffff;
+}
+
+.changeBlockBooksInCart {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 35%;
+  margin: 0 auto;
+  padding: 0; 
+}
+
+.changeAmountBookInCart {
+  background-color: white;
+  border: 1px solid white;
+  color: black;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  text-align: center;
+}
+
+.changeAmountBookInCart:hover{
+  color: white;
+  background-color:  rgb(247, 142, 247);
+}
+
+.sumOneBookInCart {
+  font-size: 12px;
+  padding: 2px;
+  margin: 0 2px;
+  border: 1px solid white;
+  text-align: center;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+/*________________*/
+
+/*FOOTER*/
+
+.footer{
+  width: 100%;
+  height: 10vh;
+  background-color: #435368;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.copyRight{
+  color: white;
+}
+
+.socialNetworksIcons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconNetworks{
+  color: white;
+  font-size: 22px;
+  margin-right: 8px;
+}
+
+.iconNetworks:hover{
+  color: rgb(247, 142, 247);
+}
+
+.contactsNetworks{
+  color: white;
+  margin-right: 8px;
+}
