@@ -1,11 +1,11 @@
-import './App.css';
+import './App.css'
 import React, { Component } from 'react'
 
-import Card from './components/Card';
-import Header from './components/Header';
-import BookInCart from './components/BookInCart';
-import Footer from './components/Footer';
-
+import Card from './components/Card'
+import Header from './components/Header'
+import BookInCart from './components/BookInCart'
+import Footer from './components/Footer'
+import BookModal from './components/BookModal'
 
 export default class App extends Component {
   constructor(props) {
@@ -18,6 +18,9 @@ export default class App extends Component {
     this.DeleteBookInCart = this.DeleteBookInCart.bind(this)
     this.AddBookInCardOfBook = this.AddBookInCardOfBook.bind(this)
     this.SumPriceBooksInCart = this.SumPriceBooksInCart.bind(this)
+
+    this.openBookModal = this.openBookModal.bind(this)
+    this.closeBookModal = this.closeBookModal.bind(this)
 
     this.state = {
       books: [
@@ -186,6 +189,8 @@ export default class App extends Component {
       allBookCards: [],
       bookCardsRender: [],
       booksInCart: [],
+      selectedBook: null,
+      isModalOpen: false
     }
   }
 
@@ -194,29 +199,38 @@ export default class App extends Component {
   }
 
   CardsRender() {
-    let allBooksCards = this.state.books.map((item, id) =>
+    const allBooksCards = this.state.books.map((item, id) => (
       <Card
         key={id}
         book={item}
         AddBookInCardOfBook={this.AddBookInCardOfBook}
-      />)
+        onOpenDetails={this.openBookModal} /* клик по карточке откроет модалку */
+      />
+    ))
     this.setState({ allBookCards: allBooksCards, bookCardsRender: allBooksCards })
+  }
+
+  openBookModal(book) {
+    this.setState({ selectedBook: book, isModalOpen: true })
+  }
+
+  closeBookModal() {
+    this.setState({ isModalOpen: false, selectedBook: null })
   }
 
   SelectGenreBooks(genre) {
     if (genre == 'все') {
       this.setState({ bookCardsRender: this.state.allBookCards })
     } else {
-      var allBooksOfGenre = this.state.allBookCards.filter(item => item.props.book.type == genre)
+      const allBooksOfGenre = this.state.allBookCards.filter(item => item.props.book.type == genre)
       this.setState({ bookCardsRender: allBooksOfGenre })
     }
   }
 
   SearchBook(even) {
-    let searchName = even.target.value.toLowerCase().trim()
-
+    const searchName = even.target.value.toLowerCase().trim()
     if (searchName != '') {
-      var books = this.state.allBookCards.filter((elem) => elem.props.book.name.toLowerCase().search(searchName) != -1)
+      const books = this.state.allBookCards.filter((elem) => elem.props.book.name.toLowerCase().search(searchName) != -1)
       this.setState({ bookCardsRender: books })
     } else {
       this.setState({ bookCardsRender: this.state.allBookCards })
@@ -228,52 +242,89 @@ export default class App extends Component {
     let indicator = 0
 
     if (allBooksInCart.length == 0) {
-      this.setState({ booksInCart: [... this.state.booksInCart, <BookInCart key={0} book={book} count={1} AddBookInCart={this.AddBookInCart} DeleteBookInCart={this.DeleteBookInCart} />] })
+      this.setState({
+        booksInCart: [
+          ...this.state.booksInCart,
+          <BookInCart
+            key={0}
+            book={book}
+            count={1}
+            AddBookInCart={this.AddBookInCart}
+            DeleteBookInCart={this.DeleteBookInCart}
+          />
+        ]
+      })
     } else {
       allBooksInCart.map((item, index) => {
         if (item.props.book.name == book.name) {
-          let countBook = item.props.count + 1
-          allBooksInCart[index] = <BookInCart key={index} book={book} count={countBook} AddBookInCart={this.AddBookInCart} DeleteBookInCart={this.DeleteBookInCart} />
-          this.setState({ booksInCart: allBooksInCart })
-        }
-        else {
-          indicator += 1
-          if (indicator == allBooksInCart.length) {
-            this.setState({
-              booksInCart: [...this.state.booksInCart, <BookInCart key={indicator} book={book} count={1} AddBookInCart={this.AddBookInCart} DeleteBookInCart={this.DeleteBookInCart} />]
-            })
-          }
+          const countBook = item.props.count + 1
+          allBooksInCart[index] =
+            <BookInCart
+              key={index}
+              book={book}
+              count={countBook}
+              AddBookInCart={this.AddBookInCart}
+              DeleteBookInCart={this.DeleteBookInCart}
+            />
+          indicator = 1
         }
       })
+
+      if (indicator == 0) {
+        allBooksInCart.push(
+          <BookInCart
+            key={allBooksInCart.length}
+            book={book}
+            count={1}
+            AddBookInCart={this.AddBookInCart}
+            DeleteBookInCart={this.DeleteBookInCart}
+          />
+        )
+      }
+      this.setState({ booksInCart: allBooksInCart })
     }
-
-
   }
 
   AddBookInCart(book) {
     let allBooksInCart = [...this.state.booksInCart]
-    
+
     allBooksInCart.map((item, index) => {
-      if (item.props.book.name == book.name) {
-        let countBook = item.props.count + 1
-        allBooksInCart[index] = <BookInCart key={index} book={book} count={countBook} AddBookInCart={this.AddBookInCart} DeleteBookInCart={this.DeleteBookInCart} />
-        this.setState({ booksInCart: allBooksInCart })
+      if (item.props.book == book) {
+        const countBook = item.props.count + 1
+        allBooksInCart[index] =
+          <BookInCart
+            key={index}
+            book={book}
+            count={countBook}
+            AddBookInCart={this.AddBookInCart}
+            DeleteBookInCart={this.DeleteBookInCart}
+          />
       }
     })
-
+    this.setState({ booksInCart: allBooksInCart })
   }
 
   DeleteBookInCart(book) {
     let allBooksInCart = [...this.state.booksInCart]
 
     allBooksInCart.map((item, index) => {
-      if (item.props.book.name == book.name) {
-        let countBook = item.props.count - 1
-        allBooksInCart[index] = <BookInCart key={index} book={book} count={countBook} AddBookInCart={this.AddBookInCart} DeleteBookInCart={this.DeleteBookInCart} />
-        this.setState({ booksInCart: allBooksInCart })
+      if (item.props.book == book) {
+        const countBook = item.props.count - 1
+        if (countBook > 0) {
+          allBooksInCart[index] =
+            <BookInCart
+              key={index}
+              book={book}
+              count={countBook}
+              AddBookInCart={this.AddBookInCart}
+              DeleteBookInCart={this.DeleteBookInCart}
+            />
+        } else {
+          allBooksInCart.splice(index, 1)
+        }
       }
     })
-
+    this.setState({ booksInCart: allBooksInCart })
   }
 
   SumPriceBooksInCart() {
@@ -302,6 +353,13 @@ export default class App extends Component {
         </div>
 
         <Footer />
+
+        <BookModal
+          open={this.state.isModalOpen}
+          book={this.state.selectedBook}
+          onClose={this.closeBookModal}
+          onAddToCart={this.AddBookInCardOfBook}
+        />
       </div>
     )
   }
